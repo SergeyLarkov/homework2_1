@@ -43,9 +43,9 @@ data class Post (
     val createdBy: Int = 0,
     val date: Int = 0,
     val text: String,
-    val reply_owner_id: Int = 0,
-    val reply_post_id: Int = 0,
-    val friends_only: Int = 0,
+    val replyOwnerId: Int = 0,
+    val replyPostId: Int = 0,
+    val friendsOnly: Int = 0,
     val postType: String = "",
     val signerId: Int = 0,
     val canPin: Int = 0,
@@ -74,17 +74,14 @@ object WallService {
     }
 
     fun update(post: Post): Boolean {
-        var result: Boolean = false
-
         for ((index,p) in posts.withIndex()) {
-            result = p.id == post.id
-            if (result) {
+            if (p.id == post.id) {
                 posts[index] = p.copy(
                     createdBy = post.createdBy,
                     text = post.text,
-                    reply_owner_id = post.reply_owner_id,
-                    reply_post_id = post.reply_post_id,
-                    friends_only= post.friends_only,
+                    replyOwnerId = post.replyOwnerId,
+                    replyPostId = post.replyPostId,
+                    friendsOnly= post.friendsOnly,
                     postType = post.postType,
                     signerId = post.signerId,
                     canPin = post.canPin,
@@ -95,10 +92,10 @@ object WallService {
                     isFavorite = post.isFavorite,
                     postponedId = post.postponedId
                 )
-                break
+                return true
             }
         }
-        return result
+        return false
     }
 }
 
