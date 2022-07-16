@@ -41,4 +41,16 @@ class mainKtTest {
 
         assertFalse(wall.update(post))
     }
+
+    @Test
+    fun test_getPostById() {
+        // создаём целевой сервис
+        val wall = WallService
+
+        // заполняем несколькими постами
+        wall.add(Post(ownerId = 0, fromId = 0, text = "test1"))
+        wall.add(Post(ownerId = 0, fromId = 0, text = "test2"))
+
+        assertTrue(wall.getPostById(2) != null)
+    }
 }
